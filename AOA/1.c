@@ -1,14 +1,12 @@
 #include <stdio.h>
+#include <conio.h>
 #include <time.h>
-#include <stdlib.h>
-
 void insertionSort(int arr[], int n)
 {
-    int i;
-    for (i = 1; i < n; i++)
+    for (int i = 1; i < n; i++)
     {
-        int temp = arr[i];
         int j = i - 1;
+        int temp = arr[i];
         while (j >= 0 && arr[j] > temp)
         {
             arr[j + 1] = arr[j];
@@ -17,120 +15,128 @@ void insertionSort(int arr[], int n)
         arr[j + 1] = temp;
     }
 }
-
 void selectionSort(int arr[], int n)
 {
     for (int i = 0; i < n - 1; i++)
     {
         int min = i;
-        for (int j = i + 1; j < n; j++)
+        for (int j = i + 1; j < n - 1; j++)
         {
-            if (arr[j] > arr[i])
+            if (arr[j] > min)
             {
-                min = j;
+                min = arr[j];
             }
         }
-        if (min != i)
+        if (arr[min] != arr[i])
         {
-            int temp = arr[min];
-            arr[min] = arr[i];
-            arr[i] = temp;
+            int temp = arr[i];
+            arr[i] = arr[min];
+            arr[min] = arr[temp];
         }
     }
 }
-
 int main()
 {
+    int n, arr[15000], ch;
     clock_t start_t, end_t;
     double total_t;
-    int n = 150000;
-    int arr[n];
-
-    printf("Insertion Sort\n\n");
-    // Best Case
-    for (int i = 0; i < n; i++)
+    printf("Enter size of array : ");
+    scanf("%d", &n);
+    do
     {
-        arr[i] = i + 1;
-    }
-    start_t = clock();
-    printf("\nBest Case\n");
-    printf("Starting time : %ld\n", start_t);
-    insertionSort(arr, n);
-    end_t = clock();
-    printf("Ending Time : %ld\n", end_t);
-    total_t = (double)end_t - (double)start_t;
-    printf("Total Time : %f\n", total_t);
+        printf("Enter 1 for Insertion Sort,2 for Selection Sort,3 For Exiting Program : ");
+        scanf("%d", &ch);
 
-    // Average Case
-    for (int i = 0; i < n; i++)
-    {
-        arr[i] = rand() % n;
-    }
-    start_t = clock();
-    printf("\nAverage Case\n");
-    printf("Starting time : %ld\n", start_t);
-    insertionSort(arr, n);
-    end_t = clock();
-    printf("Ending Time : %ld\n", end_t);
-    total_t = (double)end_t - (double)start_t;
-    printf("Total Time : %f\n", total_t);
+        switch (ch)
+        {
+        case 1:
+            printf("\nInsertion Sort \n\n");
+            printf("Best Case : \n");
+            start_t = clock();
+            printf("Start Time is : %ld \n", start_t);
+            for (int i = 0; i < n; i++)
+            {
+                arr[i] = i + 1;
+            }
+            insertionSort(arr, n);
+            end_t = clock();
+            printf("End Time is  : %ld \n", end_t);
+            total_t = (double)end_t - (double)start_t;
+            printf("Total Time taken in Best Case is : %f \n\n", total_t);
 
-    // Worst Case
-    for (int i = 0; i < n; i++)
-    {
-        arr[i] = n - i;
-    }
-    start_t = clock();
-    printf("\nWorst Case\n");
-    printf("Starting time : %ld\n", start_t);
-    insertionSort(arr, n);
-    end_t = clock();
-    printf("Ending Time : %ld\n", end_t);
-    total_t = (double)end_t - (double)start_t;
-    printf("Total Time : %f\n", total_t);
+            printf("Average Case : \n");
+            start_t = clock();
+            printf("Start Time is : %ld \n", start_t);
+            for (int i = 0; i < n; i++)
+            {
+                arr[i] = rand() % n + 1;
+            }
+            insertionSort(arr, n);
+            end_t = clock();
+            printf("End Time is  : %ld \n", end_t);
+            total_t = (double)end_t - (double)start_t;
+            printf("Total Time taken in Average Case is : %f \n\n", total_t);
 
-    printf("\nSelection Sort\n\n");
-    // Best Case
-    for (int i = 0; i < n; i++)
-    {
-        arr[i] = i + 1;
-    }
-    start_t = clock();
-    printf("\nBest Case\n");
-    printf("Starting time : %ld\n", start_t);
-    selectionSort(arr, n);
-    end_t = clock();
-    printf("Ending Time : %ld\n", end_t);
-    total_t = (double)end_t - (double)start_t;
-    printf("Total Time : %f\n", total_t);
+            printf("Worst Case : \n");
+            start_t = clock();
+            printf("Start Time is : %ld \n", start_t);
+            for (int i = 0; i < n; i++)
+            {
+                arr[i] = n - i;
+            }
+            insertionSort(arr, n);
+            end_t = clock();
+            printf("End Time is  : %ld \n", end_t);
+            total_t = (double)end_t - (double)start_t;
+            printf("Total Time taken in Worst Case is : %f \n\n", total_t);
 
-    // Average Case
-    for (int i = 0; i < n; i++)
-    {
-        arr[i] = rand() % n;
-    }
-    start_t = clock();
-    printf("\nAverage Case\n");
-    printf("Starting time : %ld\n", start_t);
-    selectionSort(arr, n);
-    end_t = clock();
-    printf("Ending Time : %ld\n", end_t);
-    total_t = (double)end_t - (double)start_t;
-    printf("Total Time : %f\n", total_t);
+            break;
+        case 2:
+            printf("\nSelection Sort \n\n");
+            printf("Best Case : \n");
+            start_t = clock();
+            printf("Start Time is : %ld \n", start_t);
+            for (int i = 0; i < n; i++)
+            {
+                arr[i] = i + 1;
+            }
+            selectionSort(arr, n);
+            end_t = clock();
+            printf("End Time is  : %ld \n", end_t);
+            total_t = (double)end_t - (double)start_t;
+            printf("Total Time taken in Best Case is : %f \n\n", total_t);
 
-    // Worst Case
-    for (int i = 0; i < n; i++)
-    {
-        arr[i] = n - i;
-    }
-    start_t = clock();
-    printf("\nWorst Case\n");
-    printf("Starting time : %ld\n", start_t);
-    selectionSort(arr, n);
-    end_t = clock();
-    printf("Ending Time : %ld\n", end_t);
-    total_t = (double)end_t - (double)start_t;
-    printf("Total Time : %f\n", total_t);
+            printf("Average Case : \n");
+            start_t = clock();
+            printf("Start Time is : %ld \n", start_t);
+            for (int i = 0; i < n; i++)
+            {
+                arr[i] = rand() % n + 1;
+            }
+            selectionSort(arr, n);
+            end_t = clock();
+            printf("End Time is  : %ld \n", end_t);
+            total_t = (double)end_t - (double)start_t;
+            printf("Total Time taken in Average Case is : %f \n\n", total_t);
 
-    return 0;
+            printf("Worst Case : \n");
+            start_t = clock();
+            printf("Start Time is : %ld \n", start_t);
+            for (int i = 0; i < n; i++)
+            {
+                arr[i] = n - i;
+            }
+            selectionSort(arr, n);
+            end_t = clock();
+            printf("End Time is  : %ld \n", end_t);
+            total_t = (double)end_t - (double)start_t;
+            printf("Total Time taken in Worst Case is : %f \n\n", total_t);
+
+            break;
+        case 3:
+            printf("Exiting program,Thank you.\n");
+            return 0;
+            break;
+        }
+    } while (ch != 3);
 }
